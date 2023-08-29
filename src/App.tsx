@@ -1,11 +1,11 @@
-import React from "react";
+import PageRouter from './pages/PageRouter'
 
 function App() {
   return (
     <div>
-      <h1>리액트 이슈 앱</h1>
+      <PageRouter />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
