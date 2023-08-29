@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getIssueRequest } from '../apis/gitIssue'
+import { useNavigate } from 'react-router-dom'
 
 interface userType {
   login: string
@@ -17,6 +18,7 @@ interface issueListType {
 function ListPage() {
   const [issueList, setIssueList] = useState<issueListType[]>([])
   const [issuePage] = useState<number>(1)
+  const navigate = useNavigate()
 
   useEffect(() => {
     getIssueRequest(issuePage).then((res) => {
@@ -31,7 +33,7 @@ function ListPage() {
       <ul>
         {issueList.map((issue) => {
           return (
-            <li key={issue.id}>
+            <li key={issue.id} onClick={() => navigate(`/detail/${issue.number}`)}>
               <div>
                 <div>
                   <span>{issue.number}</span>

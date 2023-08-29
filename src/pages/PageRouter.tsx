@@ -8,7 +8,7 @@ function PageRouter() {
     <BrowserRouter>
       <Routes>
         <Route index element={<ListPage></ListPage>}></Route>
-        <Route path="/detail" element={<DetailPage></DetailPage>}></Route>
+        <Route path="/detail/:id" element={<DetailPage></DetailPage>}></Route>
       </Routes>
     </BrowserRouter>
   )
