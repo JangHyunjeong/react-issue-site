@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getIssueOneRequest } from '../apis/gitIssue'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface userType {
   login: string
@@ -68,7 +70,11 @@ function DetailPage() {
         </div>
       </div>
 
-      <div>{issueData.body}</div>
+      <div>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml={true}>
+          {issueData.body}
+        </ReactMarkdown>
+      </div>
     </section>
   )
 }
