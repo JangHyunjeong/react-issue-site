@@ -1,11 +1,15 @@
+import { styled } from 'styled-components'
+import GlobalHeader from './components/common/GlobalHeader'
 import PageRouter from './pages/PageRouter'
 
 function App() {
   return (
-    <div>
+    <GlobalLayout>
+      <GlobalHeader />
       <PageRouter />
-    </div>
+    </GlobalLayout>
   )
 }
-
 export default App
+
+const GlobalLayout = styled.div``
