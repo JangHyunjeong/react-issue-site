@@ -1,7 +1,11 @@
+import { organization, repository } from '../../apis/instance'
+
 function GlobalHeader() {
   return (
     <header>
-      <h1>Organization Name / Repository Name</h1>
+      <h1>
+        {organization} / {repository}
+      </h1>
     </header>
   )
 }

@@ -1,5 +1,8 @@
 import axios from 'axios'
-const BASE_URL = 'https://api.github.com/repos/facebook/react/'
+export const organization = 'facebook'
+export const repository = 'react'
+
+const BASE_URL = `https://api.github.com/repos/${organization}/${repository}/`
 
 export const Instance = axios.create({
   baseURL: BASE_URL,
