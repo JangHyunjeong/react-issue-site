@@ -28,17 +28,32 @@ function ListPage() {
     <>
       <h2>ListPage</h2>
 
-      {issueList.map((issue) => {
-        return (
-          <div key={issue.id}>
-            <div>{issue.number}</div>
-            <div>{issue.title}</div>
-            <div>{issue.user.login}</div>
-            <div>{issue.created_at}</div>
-            <div>{issue.comments}</div>
-          </div>
-        )
-      })}
+      <ul>
+        {issueList.map((issue) => {
+          return (
+            <li key={issue.id}>
+              <div>
+                <div>
+                  <span>{issue.number}</span>
+                  <strong>{issue.title}</strong>
+                </div>
+                <div>
+                  <dl>
+                    <dt>작성자 : </dt>
+                    <dd>{issue.user.login}</dd>
+                  </dl>
+                  <dl>
+                    <dt>작성일 : </dt>
+                    <dd>{issue.created_at}</dd>
+                  </dl>
+                </div>
+              </div>
+
+              <div>{issue.comments}</div>
+            </li>
+          )
+        })}
+      </ul>
     </>
   )
 }
