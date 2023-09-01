@@ -4,7 +4,7 @@ import { colors } from '../constants/colors'
 import { flex } from '../constants/flex'
 import { fontSizes } from '../constants/fontSizes'
 
-export const Theme: DefaultTheme = {
+export const theme: DefaultTheme = {
   colors,
   fontSizes,
   flex,
