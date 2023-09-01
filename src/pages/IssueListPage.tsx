@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getIssueRequest } from '../apis/gitIssue'
+
+import * as S from '../components/Issue/IssueList.styled'
 
 interface userType {
   login: string
@@ -57,47 +59,46 @@ function ListPage() {
     return <div>로딩중</div>
   } else {
     return (
-      <>
-        <h2>ListPage</h2>
+      <S.ListContainer>
+        <h2 className="visuallyHidden">ListPage</h2>
 
-        <ul>
+        <S.ListUl>
           {issueList.map((issue, index) => {
             return (
-              <li
-                key={issue.number}
-                onClick={() => navigate(`/detail/${issue.number}`)}
-                ref={issueList.length === index + 1 ? scrollRef : null}
-              >
-                <strong>{index} Ref</strong>
-                <div>
-                  <div>
-                    <span>{issue.number}</span>
-                    <strong>{issue.title}</strong>
-                  </div>
-                  <div>
-                    <dl>
-                      <dt>작성자 : </dt>
-                      <dd>{issue.user.login}</dd>
-                    </dl>
-                    <dl>
-                      <dt>작성일 : </dt>
-                      <dd>{issue.created_at}</dd>
-                    </dl>
-                  </div>
-                </div>
-                <div>{issue.comments}</div>
+              <>
+                <S.ListLi
+                  key={issue.number}
+                  onClick={() => navigate(`/detail/${issue.number}`)}
+                  ref={issueList.length === index + 1 ? scrollRef : null}
+                >
+                  <S.ListLiLeft>
+                    <S.IssueNumber>{issue.number}</S.IssueNumber>
+                    <S.IssueTitle>{issue.title}</S.IssueTitle>
+                    <S.IssueInfo>
+                      <S.IssueInfoDl>
+                        <dt>작성자 :</dt>
+                        <dd>{issue.user.login}</dd>
+                      </S.IssueInfoDl>
+                      <S.IssueInfoDl>
+                        <dt>작성일 :</dt>
+                        <dd>{issue.created_at}</dd>
+                      </S.IssueInfoDl>
+                    </S.IssueInfo>
+                  </S.ListLiLeft>
+                  <S.ListLiRight>
+                    <S.IssueComments>{issue.comments}</S.IssueComments>
+                  </S.ListLiRight>
+                </S.ListLi>
                 {(index + 1) % 5 === 0 && (
-                  <div>
-                    <Link to="https://www.wanted.co.kr/jobsfeed" target="_blank">
-                      <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100"></img>
-                    </Link>
-                  </div>
+                  <S.IssueAd to="https://www.wanted.co.kr/jobsfeed" target="_blank">
+                    <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100"></img>
+                  </S.IssueAd>
                 )}
-              </li>
+              </>
             )
           })}
-        </ul>
-      </>
+        </S.ListUl>
+      </S.ListContainer>
     )
   }
 }
