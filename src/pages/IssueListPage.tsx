@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getIssueRequest } from '../apis/gitIssue'
 
+import Error from '../components/Error/Error'
+
 import * as S from '../components/Issue/IssueList.styled'
 
 interface userType {
@@ -19,6 +21,7 @@ interface issueListType {
 
 function ListPage() {
   const [loading, setLoading] = useState<boolean>(true)
+  const [isError, setIsError] = useState<boolean>(false)
   const [issueList, setIssueList] = useState<issueListType[]>([])
   const [page, setPage] = useState<number>(1)
   const navigate = useNavigate()
@@ -34,9 +37,10 @@ function ListPage() {
           return Array.from(new Set([...oldIssue, ...response]))
         })
         setLoading(false)
+        setIsError(false)
       })
-      .catch((error) => {
-        console.error(error)
+      .catch(() => {
+        setIsError(true)
       })
   }, [page])
 
@@ -55,11 +59,13 @@ function ListPage() {
     }
   }, [scrollRef, issueList])
 
-  if (loading === true) {
+  if (loading) {
     // FIXME: 로딩 로직, 로직 컴포넌트 분리하기
     return <S.IssueLoading>Loading...</S.IssueLoading>
   } else {
-    return (
+    return isError ? (
+      <Error />
+    ) : (
       <S.ListContainer>
         <h2 className="visuallyHidden">ListPage</h2>
 

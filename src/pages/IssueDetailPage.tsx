@@ -4,6 +4,8 @@ import { getIssueOneRequest } from '../apis/gitIssue'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
+import Error from '../components/Error/Error'
+
 import * as S from '../components/Issue/IssueDetail.styled'
 
 interface userType {
@@ -24,7 +26,8 @@ interface issueType {
 function DetailPage() {
   const params = useParams()
   const issueNumber = Number(params.id)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isError, setIsError] = useState<boolean>(false)
   const [issueData, setIssueData] = useState<issueType>({
     id: 0,
     number: 0,
@@ -39,17 +42,24 @@ function DetailPage() {
   })
 
   useEffect(() => {
-    getIssueOneRequest(issueNumber).then((res) => {
-      setIssueData(res)
-      setLoading(false)
-    })
+    console.log(isError)
+    getIssueOneRequest(issueNumber)
+      .then((res) => {
+        setIssueData(res)
+        setIsLoading(false)
+        setIsError(false)
+      })
+      .catch(() => {
+        setIsError(true)
+      })
   }, [issueNumber])
 
-  if (loading === true) {
-    // FIXME: 로딩 로직, 로직 컴포넌트 분리하기
+  if (isLoading) {
     return <S.IssueLoading>Loading...</S.IssueLoading>
   } else {
-    return (
+    return isError ? (
+      <Error />
+    ) : (
       <S.DeatilContainer>
         <h2 className="visuallyHidden">DetailPage</h2>
 
