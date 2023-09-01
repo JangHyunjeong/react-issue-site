@@ -1,13 +1,13 @@
-export interface fontSizes {
+export interface FontSizeType {
+  default: string
   large: string
   medium: string
-  default: string
   small: string
 }
 
-export const fontSizes = {
+export const fontSizes: FontSizeType = {
+  default: '16px',
   large: '36px',
   medium: '20px',
-  default: '16px',
   small: '12px',
 }

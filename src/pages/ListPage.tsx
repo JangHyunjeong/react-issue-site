@@ -20,13 +20,13 @@ function ListPage() {
   const [issueList, setIssueList] = useState<issueListType[]>([])
   const [page, setPage] = useState<number>(1)
   const navigate = useNavigate()
-
   const scrollRef = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
     getIssueRequest(page)
       .then((response) => {
         setIssueList((oldIssue) => {
+          // oldIsssue 에 response 가 계속 붙는구나..
           return Array.from(new Set([...oldIssue, ...response]))
         })
         setLoading(false)
@@ -41,13 +41,12 @@ function ListPage() {
       const intersectionObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setPage((page) => {
-              return page + 1
-            })
+            setPage((page) => page + 1)
             observer.unobserve(entry.target)
           }
         })
       })
+
       intersectionObserver.observe(scrollRef.current)
     }
   }, [scrollRef, issueList])
@@ -85,7 +84,7 @@ function ListPage() {
                   </div>
                 </div>
                 <div>{issue.comments}</div>
-                {(issueList.indexOf(issue) + 1) % 5 === 0 && (
+                {(index + 1) % 5 === 0 && (
                   <div>
                     <Link to="https://www.wanted.co.kr/jobsfeed" target="_blank">
                       <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100"></img>
