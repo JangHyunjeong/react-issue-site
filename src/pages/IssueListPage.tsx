@@ -56,7 +56,7 @@ function ListPage() {
   }, [scrollRef, issueList])
 
   if (loading === true) {
-    return <div>로딩중</div>
+    return <S.IssueLoading>Loading...</S.IssueLoading>
   } else {
     return (
       <S.ListContainer>

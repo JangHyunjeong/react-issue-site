@@ -61,3 +61,13 @@ export const IssueAd = styled(Link)`
   padding: 20px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `
+export const IssueLoading = styled.div`
+  ${({ theme }) => theme.flex.flexCenter}
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: ${({ theme }) => theme.colors.dimmed};
+  color: ${({ theme }) => theme.colors.white};
+`
