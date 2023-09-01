@@ -1,8 +1,10 @@
 export interface FlexType {
   flexCenter: string
   flexStart: string
+  flexStartCenter: string
   flexBetweenCenter: string
   flexColumnCenter: string
+  flexColumnStartCenter: string
 }
 
 export const flex: FlexType = {
@@ -16,6 +18,11 @@ export const flex: FlexType = {
     justify-content: flex-start;
     align-items: flex-start;
   `,
+  flexStartCenter: `
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  `,
   flexBetweenCenter: `
     display: flex;
     justify-content: space-between;
@@ -26,5 +33,11 @@ export const flex: FlexType = {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  `,
+  flexColumnStartCenter: `
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
   `,
 }
