@@ -22,11 +22,13 @@ function ListPage() {
   const navigate = useNavigate()
   const scrollRef = useRef<HTMLLIElement>(null)
 
+  // FIXME: 바깥으로 뺄수 있는 방법이 있을까?!
+  // FIXME: 아니면 useCallback 사용하는건?
   useEffect(() => {
     getIssueRequest(page)
       .then((response) => {
         setIssueList((oldIssue) => {
-          // oldIsssue 에 response 가 계속 붙는구나..
+          // FIXME: oldIsssue 에 response 가 계속 붙는구나..
           return Array.from(new Set([...oldIssue, ...response]))
         })
         setLoading(false)

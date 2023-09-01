@@ -2,13 +2,15 @@ import { Outlet } from 'react-router-dom'
 
 import GlobalHeader from '../Common/GlobalHeader'
 
+import * as S from './Layout.styled'
+
 export default function Layout() {
   return (
-    <div>
+    <S.LayoutContainer>
       <GlobalHeader />
-      <main>
+      <S.Main>
         <Outlet />
-      </main>
-    </div>
+      </S.Main>
+    </S.LayoutContainer>
   )
 }
