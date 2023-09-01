@@ -4,6 +4,8 @@ import { getIssueOneRequest } from '../apis/gitIssue'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
+import * as S from '../components/Issue/IssueDetail.styled'
+
 interface userType {
   login: string
   avatar_url: string
@@ -22,6 +24,7 @@ interface issueType {
 function DetailPage() {
   const params = useParams()
   const issueNumber = Number(params.id)
+  const [loading, setLoading] = useState<boolean>(true)
   const [issueData, setIssueData] = useState<issueType>({
     id: 0,
     number: 0,
@@ -38,44 +41,45 @@ function DetailPage() {
   useEffect(() => {
     getIssueOneRequest(issueNumber).then((res) => {
       setIssueData(res)
+      setLoading(false)
     })
   }, [issueNumber])
 
-  return (
-    <section>
-      <h2>DetailPage</h2>
+  if (loading === true) {
+    // FIXME: 로딩 로직, 로직 컴포넌트 분리하기
+    return <S.IssueLoading>Loading...</S.IssueLoading>
+  } else {
+    return (
+      <S.DeatilContainer>
+        <h2 className="visuallyHidden">DetailPage</h2>
 
-      <div>
-        <header>
-          <h3>
-            <span>{issueData.number}</span>
-            <strong>{issueData.title}</strong>
-          </h3>
-        </header>
-        <div>
-          <dl>
-            <dt>작성자 : </dt>
-            <dd>
-              <img src={issueData.user.avatar_url}></img> {issueData.user.login}
-            </dd>
-          </dl>
-          <dl>
-            <dt>작성일 : </dt>
-            <dd>{issueData.created_at}</dd>
-          </dl>
-          <dl>
-            <dt>코멘트 수 : </dt>
-            <dd>{issueData.comments}</dd>
-          </dl>
-        </div>
-      </div>
+        <S.DeatilHeader>
+          <S.DeatilHeaderLeft>
+            <S.IssueNumber>{issueData.number}</S.IssueNumber>
+            <S.IssueTitle>{issueData.title}</S.IssueTitle>
 
-      <div>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml={true}>
-          {issueData.body}
-        </ReactMarkdown>
-      </div>
-    </section>
-  )
+            <S.IssueInfo>
+              <S.IssueInfoUser>
+                <S.IssueInfoUserImg>
+                  <img src={issueData.user.avatar_url} />{' '}
+                </S.IssueInfoUserImg>
+                {issueData.user.login}
+              </S.IssueInfoUser>
+              {issueData.created_at}
+            </S.IssueInfo>
+          </S.DeatilHeaderLeft>
+          <S.DeatilHeaderRight>
+            <S.IssueComments>{issueData.comments}</S.IssueComments>
+          </S.DeatilHeaderRight>
+        </S.DeatilHeader>
+
+        <S.DetailContents>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml={true}>
+            {issueData.body}
+          </ReactMarkdown>
+        </S.DetailContents>
+      </S.DeatilContainer>
+    )
+  }
 }
 export default DetailPage

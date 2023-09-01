@@ -56,6 +56,7 @@ function ListPage() {
   }, [scrollRef, issueList])
 
   if (loading === true) {
+    // FIXME: 로딩 로직, 로직 컴포넌트 분리하기
     return <S.IssueLoading>Loading...</S.IssueLoading>
   } else {
     return (
