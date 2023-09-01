@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
+import * as S from '../components/Error/Error.styled'
 
 export default function ErrorPage() {
   return (
-    <div>
-      <h2>ERROR!</h2>
-      <Link to="/">메인으로 이동</Link>
-    </div>
+    <S.ErrorContainer>
+      <S.ErrorTitle>ERROR!</S.ErrorTitle>
+      <S.LinkButton to="/">메인으로 이동</S.LinkButton>
+    </S.ErrorContainer>
   )
 }
