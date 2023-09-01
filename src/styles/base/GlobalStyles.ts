@@ -13,7 +13,7 @@ ${reset},
     html, body {
         height: 100%;
         font-family: 'Noto Sans KR', sans-serif;
-        font-size: ${({ theme }) => theme.fontSizes.default}
+        font-size: ${({ theme }) => theme.fontSizes.default};
         color: ${({ theme }) => theme.textColor};
     }
     a {

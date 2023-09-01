@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   left: 0;
   width: 100%;
   height: 60px;
-  box-shadow: ${({ theme }) => theme.commonStyles.boxShadow}
+  box-shadow: ${({ theme }) => theme.commonStyles.boxShadow};
   background-color: ${({ theme }) => theme.colors.boxColor};
 `
 export const HeaderTitle = styled.h1`
