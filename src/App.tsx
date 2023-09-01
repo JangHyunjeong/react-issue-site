@@ -1,4 +1,4 @@
-import GlobalHeader from './components/common/GlobalHeader'
+import GlobalHeader from './components/Common/GlobalHeader'
 import PageRouter from './pages/PageRouter'
 
 import { styled, ThemeProvider } from 'styled-components'
