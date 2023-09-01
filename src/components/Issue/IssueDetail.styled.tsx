@@ -70,8 +70,11 @@ export const IssueComments = styled.strong`
 `
 export const DetailContents = styled.div`
   padding: 20px 0;
-
   line-height: 1.4em;
+
+  * {
+    all: revert;
+  }
 `
 export const IssueLoading = styled.div`
   ${({ theme }) => theme.flex.flexCenter}
