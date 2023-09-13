@@ -30,6 +30,8 @@ function ListPage() {
   // FIXME: 바깥으로 뺄수 있는 방법이 있을까?!
   // FIXME: 아니면 useCallback 사용하는건?
   useEffect(() => {
+    setLoading(true)
+
     getIssueRequest(page)
       .then((response) => {
         setIssueList((oldIssue) => {
