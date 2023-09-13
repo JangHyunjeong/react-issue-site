@@ -18,7 +18,8 @@
 
 ### 1. Infinity Scroll
 
-- `Ref`와 `InterScetionObserver`를 사용하여 Infinity Scroll을 구현하였습니다.
+- `Ref`와 `InterScetionObserver`를 활하여 Infinity Scroll을 구현하였습니다.
+![무한_스크롤](https://github.com/JangHyunjeong/react-issue-web/assets/85441226/4883142b-9d42-4d1c-9027-f3dcab92af56)
 
 
 ### 2. 로딩중 컴포넌트
