@@ -1,36 +1,25 @@
 import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getIssueRequest } from '../apis/gitIssue'
+import { issueListType } from '../components/Issue/type'
+import { useInfinityScroll } from '../hooks/useInfinityScroll'
 
 import Error from '../components/Error/Error'
 
 import * as S from '../components/Issue/IssueList.styled'
 
-interface userType {
-  login: string
-}
-
-interface issueListType {
-  id: number
-  number: number
-  title: string
-  user: userType
-  created_at: string
-  comments: string
-}
-
 function ListPage() {
-  const [loading, setLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isError, setIsError] = useState<boolean>(false)
   const [issueList, setIssueList] = useState<issueListType[]>([])
-  const [page, setPage] = useState<number>(1)
   const navigate = useNavigate()
-  const scrollRef = useRef<HTMLLIElement>(null)
+  const scrollRef = useRef<HTMLLIElement | null>(null)
+  const { page } = useInfinityScroll(scrollRef, issueList)
 
   // FIXME: 바깥으로 뺄수 있는 방법이 있을까?!
   // FIXME: 아니면 useCallback 사용하는건?
   useEffect(() => {
-    setLoading(true)
+    setIsLoading(true)
 
     getIssueRequest(page)
       .then((response) => {
@@ -38,36 +27,20 @@ function ListPage() {
           // FIXME: oldIsssue 에 response 가 계속 붙는구나..
           return Array.from(new Set([...oldIssue, ...response]))
         })
-        setLoading(false)
+        setIsLoading(false)
         setIsError(false)
       })
       .catch(() => {
+        setIsLoading(false)
         setIsError(true)
       })
   }, [page])
 
-  useEffect(() => {
-    if (scrollRef && scrollRef.current) {
-      const intersectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setPage((page) => page + 1)
-            observer.unobserve(entry.target)
-          }
-        })
-      })
+  return (
+    <>
+      {isLoading && <S.IssueLoading>Loading...</S.IssueLoading>}
+      {isError && <Error />}
 
-      intersectionObserver.observe(scrollRef.current)
-    }
-  }, [scrollRef, issueList])
-
-  if (loading) {
-    // FIXME: 로딩 로직, 로직 컴포넌트 분리하기
-    return <S.IssueLoading>Loading...</S.IssueLoading>
-  } else {
-    return isError ? (
-      <Error />
-    ) : (
       <S.ListContainer>
         <h2 className="visuallyHidden">ListPage</h2>
 
@@ -108,8 +81,8 @@ function ListPage() {
           })}
         </S.ListUl>
       </S.ListContainer>
-    )
-  }
+    </>
+  )
 }
 
 export default ListPage
